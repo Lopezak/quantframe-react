@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 import { TauriClient } from "..";
 import { TransactionDto, TransactionType, ChartMultipleDto, StatisticProfitTransaction, StatisticProfitItem, CategoryItemProfitLink, StatisticItemCategoryProfit, StatisticProfitTransactionTotal, StatisticProfitTransactionToday, StatisticProfitTransactionRecentDays, StatisticRecentTransactions, StatisticItemBestSeller, StatisticDto } from "../types";
 import { GroupByDateSettings, getGroupByDate, groupBy } from "@utils/helper";
@@ -154,8 +156,8 @@ export class StatisticModule {
   }
 
   private GetToDayProfit(transactions: TransactionDto[]): StatisticProfitTransactionToday {
-    let today = dayjs().startOf("day").toDate();
-    let endToday = dayjs().endOf('day').toDate();
+    let today = dayjs().utc().startOf("day").toDate();
+    let endToday = dayjs().utc().endOf('day').toDate();
     const labels = [];
     for (let i = 0; i < 24; i++) labels.push(`${i}:00`);
 
